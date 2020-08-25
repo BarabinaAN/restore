@@ -1,27 +1,24 @@
 import React from 'react'
-import Spinner from '../spinner'
-import ErrorBoundry from '../error-boundry'
+import { Route, Switch } from 'react-router-dom'
 
-import BookstoreService from '../../services/bookstore-service'
-import { BookstoreServerProvider } from '../bookstore-service-context'
-import { withBookstoreService } from '../hoc'
+import {
+   HomePage,
+   CardPage
+} from '../pages'
+import Spinner from '../spinner'
+
 import './app.css'
 
-const service = new BookstoreService()
 
 const App = () => {
-   return (
-      <BookstoreServerProvider service={service} >
-         <Spinner />
-         <ErrorBoundry />
-      </BookstoreServerProvider>
-   )
+   return <>
+      <Spinner />
+      <Switch>
+         <Route path='/' exact component={HomePage}/>
+         <Route path='/card' component={CardPage}/>
+         <Route />
+      </Switch>
+   </>
 }
 
-const mapMethodsToProps = (service) => {
-   return {
-      getBooks: service.getBooks
-   }
-}
-
-export default withBookstoreService(mapMethodsToProps)(App)
+export default App

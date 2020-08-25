@@ -2,22 +2,17 @@ export default class BookstoreService {
    _books = [
       {
           id: 1,
-          name: 'Bilbo Baggins [TEST DATA]',
-          gender: 'male',
-          birthYear: 'long ago',
-          eyeColor: 'dark brown'
+          title: 'Bilbo Baggins [TEST DATA]',
+          author: 'male',
       },
-
       {
           id: 2,
-          name: 'Frodo Baggins [TEST DATA]',
-          gender: 'male',
-          birthYear: 'long ago',
-          eyeColor: 'dark brown'
+          title: 'Frodo Baggins [TEST DATA]',
+          author: 'male',
       }
   ];
 
-   getBooks = async () => {
+   getBooks = () => {
       return this._books
    }
 }
