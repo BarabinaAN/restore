@@ -6,7 +6,6 @@ import {
    CartPage
 } from '../pages'
 import Header from '../header'
-import Spinner from '../spinner'
 
 import './app.css'
 
