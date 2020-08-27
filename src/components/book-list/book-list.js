@@ -3,31 +3,33 @@ import { connect } from 'react-redux'
 
 import BookListItem from '../book-list-item'
 import Spinner from '../spinner'
+import ErrorIndicator from '../error-indicator'
 import { withBookstoreService } from '../hoc'
-import { booksLoaded, booksRequest } from '../../actions'
+import { fatchBooks } from '../../actions'
 import { compose } from '../../utils'
 
 import './book-list.css'
 
-class BookList extends Component {
+const BookList = ({ books }) => {
+   return (
+      <ul className='book-list'>
+         { books.map(item =><BookListItem key={item.id} book={item}/> ) }
+      </ul>
+   )
+}
+
+class BookListContainer extends Component {
    componentDidMount() {
-      const { service, booksLoaded, booksRequest } = this.props
-      booksRequest()
-      service.getBooks()
-         .then((data) => booksLoaded(data))
+      this.props.fatchBooks()
    }
 
-   renderList = (data) => {
-      return (
-         <ul className='book-list'>
-            { data.map(item =><BookListItem key={item.id} book={item}/> ) }
-         </ul>
-      )
-   }
+
 
    render () {
-      const { books, loading} = this.props
-      const content = !loading ? this.renderList(books) : <Spinner />
+      const { books, loading, error } = this.props
+      const content = loading ? <Spinner /> :
+                        error ? <ErrorIndicator /> : 
+                        <BookList books={books}/>
       return content
    }
 }
@@ -35,13 +37,19 @@ class BookList extends Component {
 const mapStateToProps = (state) => {
    return {
       books: state.books,
-      loading: state.loading
+      loading: state.loading,
+      error: state.error
    }
 }
 
-const mapDispatchToProps = { booksLoaded, booksRequest }
+const mapDispatchToProps = (dispatch, ownProps) => { 
+   const { service } = ownProps
+   return {
+      fatchBooks: fatchBooks(dispatch, service)
+   }
+}
 
 export default compose(
    withBookstoreService(),
    connect(mapStateToProps, mapDispatchToProps) 
-)(BookList)
+)(BookListContainer)
