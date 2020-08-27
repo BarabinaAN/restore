@@ -8,7 +8,7 @@ const CartTable = ({ items, total, onInc, onDec, onDelete }) => {
     const { id, name, count, total } = item
     return (
       <tr key={id}>
-        <td>{indx}</td>
+        <td>{++indx }</td>
         <td>{name}</td>
         <td>{count}</td>
         <td>{total} P</td>
