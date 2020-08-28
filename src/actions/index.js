@@ -24,6 +24,18 @@ const bookAddToCart = (bookId) => {
       payload: bookId
    }
 }
+const bookRemoveFromCart = (bookId) => {
+   return {
+      type: 'BOOK_REMOVE_FROM_CARD',
+      payload: bookId
+   }
+}
+const allBooksRemoveFromCart = (bookId) => {
+   return {
+      type: 'ALL_BOOKS_REMOVE_FROM_CARD',
+      payload: bookId
+   }
+}
 
 const fatchBooks = (dispatch, service) => () => {
    dispatch(booksRequest())
@@ -34,5 +46,7 @@ const fatchBooks = (dispatch, service) => () => {
 
 export {
    fatchBooks,
-   bookAddToCart
+   bookAddToCart,
+   bookRemoveFromCart,
+   allBooksRemoveFromCart
 }
